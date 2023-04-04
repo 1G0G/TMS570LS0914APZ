@@ -67,10 +67,9 @@ char LEDindex = 0;
 char MODE = 0;
 bool LEDcount = 0;
 uint32 port = 0;
-uint32 cont_bounce = 0;
+uint32 count_bounce = 0;
 uint32 last_tick = 0;
-bool BUTTstate;
-
+bool butt_state = 0;
 
 /* USER CODE END */
 
@@ -86,33 +85,7 @@ int main(void)
 
     while (1)
     {
-        if (gioGetBit(hetPORT1, 12) != BUTTstate){
-            BUTTstate=0;
-            cont_bounce++;
-        last_tick = rtiGetCurrentTick(rtiCOMPARE0);
-        }
-        if(!BUTTstate&&(rtiGetCurrentTick(rtiCOMPARE0)-last_tick>3000000))
-        {
-            BUTTstate=1;
-            mode_change();
-        }
-
-
-/*
-        if (gioGetBit(hetPORT1, 12) != BUTTstate)
-        {
-
-            if (rtiGetCurrentTick(rtiCOMPARE0) - last_tick >= 1000000)
-            {
-                last_tick = rtiGetCurrentTick(rtiCOMPARE0);
-                if (gioGetBit(hetPORT1, 12) != BUTTstate)
-                {
-                    BUTTstate = gioGetBit(hetPORT1, 12);
-                    mode_change();
-                }
-            }
-        }
-*/
+       button_chek();
     }
 
     /* USER CODE END */
@@ -121,7 +94,7 @@ int main(void)
 /* USER CODE BEGIN (4) */
 void rtiNotification(uint32 notification)
 {
-
+/*
     if (MODE == 0)
     {
         if (LEDcount == 1)
@@ -177,11 +150,30 @@ void rtiNotification(uint32 notification)
         }
         gioSetPort(gioPORTA, ~port);
     }
+*/
 }
 
+void button_chek(){
+    if (gioGetBit(hetPORT1, 12)==0 && rtiGetCurrentTick(rtiCOMPARE0)-last_tick >= 200000){
+                last_tick=rtiGetCurrentTick(rtiCOMPARE0);
+                count_bounce++;
+                gioToggleBit(gioPORTA,0);
+            }
+            if (gioGetBit(hetPORT1, 12) == 1 & count_bounce<6 & rtiGetCurrentTick(rtiCOMPARE0)-last_tick>=1000000){
+                count_bounce=0;
+            }
+            if (count_bounce>6){
+                gioSetBit(gioPORTA, 1, 0);
+                count_bounce=0;
+                return 1;
+            }
+}
+
+
+/*
 void mode_change()
 {
-    if (MODE > 2) { MODE = 0;}
+    if (MODE > 2) { MODE = -1;}
     MODE++;
     LEDindex = -1;
     gioSetPort(gioPORTA, 0xFFFFFFFF);
@@ -198,5 +190,7 @@ void mode_change()
         rtiSetPeriod(rtiCOMPARE0, 1000000);
     }
     rtiResetCounter(rtiCOUNTER_BLOCK0);
+
 }
+*/
 /* USER CODE END */
