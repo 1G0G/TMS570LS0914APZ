@@ -67,9 +67,11 @@ char LEDindex = 0;
 char MODE = 0;
 bool LEDcount = 0;
 uint32 port = 0;
-uint32 last_period = 0;
-bool RTI_TIMEOUT = 1;
+uint32 cont_bounce = 0;
+uint32 last_tick = 0;
 bool BUTTstate;
+
+
 /* USER CODE END */
 
 int main(void)
@@ -81,33 +83,36 @@ int main(void)
     rtiEnableNotification(rtiNOTIFICATION_COMPARE0);
     _enable_IRQ();
     rtiStartCounter(rtiCOUNTER_BLOCK0);
+
     while (1)
     {
-        if (MODE > 2)
+        if (gioGetBit(hetPORT1, 12) != BUTTstate){
+            BUTTstate=0;
+            cont_bounce++;
+        last_tick = rtiGetCurrentTick(rtiCOMPARE0);
+        }
+        if(!BUTTstate&&(rtiGetCurrentTick(rtiCOMPARE0)-last_tick>3000000))
         {
-            MODE = 0;
+            BUTTstate=1;
+            mode_change();
         }
 
-        if (gioGetBit(hetPORT1, 12) == !BUTTstate)
-        {
-            BUTTstate = gioGetBit(hetPORT1, 12);
-            MODE++;
-            LEDindex = -1;
-            gioSetPort(gioPORTA, 0xFFFFFFFF);
-                if (MODE == 1)
-                {
-                    rtiSetPeriod(rtiCOMPARE0, 2500000);
-                }
-                if (MODE == 2)
-                {
-                    rtiSetPeriod(rtiCOMPARE0, 2000000);
-                }
-                if (MODE == 3)
-                {
-                    rtiSetPeriod(rtiCOMPARE0, 1000000);
-                }
-        }
 
+/*
+        if (gioGetBit(hetPORT1, 12) != BUTTstate)
+        {
+
+            if (rtiGetCurrentTick(rtiCOMPARE0) - last_tick >= 1000000)
+            {
+                last_tick = rtiGetCurrentTick(rtiCOMPARE0);
+                if (gioGetBit(hetPORT1, 12) != BUTTstate)
+                {
+                    BUTTstate = gioGetBit(hetPORT1, 12);
+                    mode_change();
+                }
+            }
+        }
+*/
     }
 
     /* USER CODE END */
@@ -116,7 +121,6 @@ int main(void)
 /* USER CODE BEGIN (4) */
 void rtiNotification(uint32 notification)
 {
-    RTI_TIMEOUT = 1;
 
     if (MODE == 0)
     {
@@ -175,29 +179,24 @@ void rtiNotification(uint32 notification)
     }
 }
 
-/*void period(uint16 comp,uint16 per) {
- rtiStopCounter(rtiCOUNTER_BLOCK0);
- rtiSetPeriod(comp, per);
- rtiResetCounter(rtiCOUNTER_BLOCK0);
- rtiStartCounter(rtiCOUNTER_BLOCK0);
- }*/
-/*void delay(uint16 us) {
- if (us == 0)
- return;
- else
- {
- last_period=rtiGetPeriod(rtiCOMPARE0);
- rtiSetPeriod(rtiCOMPARE0, 10*us);
- rtiEnableNotification(rtiNOTIFICATION_COMPARE0);
- rtiStartCounter(rtiCOUNTER_BLOCK0);
- while(RTI_TIMEOUT==0);
- RTI_TIMEOUT = 0;
- rtiDisableNotification(rtiNOTIFICATION_COMPARE0);
- rtiStopCounter(rtiCOUNTER_BLOCK0);
- rtiSetPeriod(rtiCOMPARE0, last_period);
- rtiResetCounter(rtiCOUNTER_BLOCK0);
-
- }
- }*/
-
+void mode_change()
+{
+    if (MODE > 2) { MODE = 0;}
+    MODE++;
+    LEDindex = -1;
+    gioSetPort(gioPORTA, 0xFFFFFFFF);
+    if (MODE == 0)
+    {
+        rtiSetPeriod(rtiCOMPARE0, 2500000);
+    }
+    if (MODE == 1)
+    {
+        rtiSetPeriod(rtiCOMPARE0, 2000000);
+    }
+    if (MODE == 2)
+    {
+        rtiSetPeriod(rtiCOMPARE0, 1000000);
+    }
+    rtiResetCounter(rtiCOUNTER_BLOCK0);
+}
 /* USER CODE END */
