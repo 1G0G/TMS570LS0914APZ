@@ -52,6 +52,7 @@
 #include "gio.h"
 #include "rti.h"
 #include "het.h"
+#include "My_file.h"
 // #include "My_file.h"
 /* USER CODE END */
 
@@ -64,87 +65,18 @@
  */
 
 /* USER CODE BEGIN (2) */
-bool calc_direction = 0;
-bool butt_state = 0;
-int8_t led_index = 0;
-uint8_t mode = 0;
-uint32_t port = 0;
-uint32_t count_bounce = 0;
-uint32_t last_tick = 0;
-/*
-void mode_change(mode)
-{
-    led_index = -1;
-    gioSetPort(gioPORTA, 0xFFFFFFFF);
-    switch (mode)
-    {
-    case 0:
-        rtiSetPeriod(rtiCOMPARE0, 2500000);
-        break;
-    case 1:
-        rtiSetPeriod(rtiCOMPARE0, 2000000);
-        break;
-    case 2:
-        rtiSetPeriod(rtiCOMPARE0, 1000000);
-        break;
-    default:
-        mode = 0;
-        break;
-    }
-    rtiResetCounter(rtiCOUNTER_BLOCK0);
-}
-*/
-
-/*
-bool button_state()
-{
-    /*
-     *  Button polling every 30ms.
-     *
-     *  Return true when "unpressed"
-     *  or dnt return anything.
-     *
-     *  "unpressed" while after 6+ positive mathces
-     *  go 6+ negative matches and butt_state == 0
-     *
-     *  Duty (6+6)*30 = 360ms
-     *
-     *  // - uncom for debug
-     *
-    if (gioGetBit(hetPORT1, 12) == butt_state
-            && rtiGetCurrentTick(rtiCOMPARE0) - last_tick >= 300000)
-    {
-        last_tick = rtiGetCurrentTick(rtiCOMPARE0);
-        count_bounce++;
-//gioToggleBit(gioPORTA, 0);            // 0 bit - bounce
-    }
-    if (count_bounce > 6)
-    {
-        if (butt_state == 0)
-        {
-            butt_state = 1;
-            count_bounce = 0;
-//gioSetBit(gioPORTA,1,!butt_state);    // 1 bit - set ON if pressed
-        }
-        else
-        {
-            butt_state = 0;
-            count_bounce = 0;
-//gioSetBit(gioPORTA,1,!butt_state);    // 1 bit - set OFF if dnt pressed
-//gioToggleBit(gioPORTA,2);             // 2 bit - flag on/of
-            return 1;
-        }
-    }
-    return 0;
-}
-*/
-
+static boolean calc_direction = 0;
+static int8_t  led_index = 0;
+static uint32_t port = 0;
+mode_t  mode = led_wave;
+// boolean butt_state = 0;
+//uint32_t count_bounce = 0;
+//uint32_t last_tick = 0;
 /* USER CODE END */
 
 int main(void)
 {
     /* USER CODE BEGIN (3) */
-
     hetInit();
     gioInit();
     rtiInit();
@@ -156,10 +88,13 @@ int main(void)
     {
         if (button_state() == true)
         {
-            mode_change();
+            led_index = -1;
+            mode_change(mode);
             mode++;
+            if(mode>led_binary_increment){
+                mode=led_wave;
+            }
         }
-
     }
 
     /* USER CODE END */
@@ -169,66 +104,68 @@ int main(void)
 void rtiNotification(uint32 notification)
 {
     switch (mode)
-    {
-    case 0:
+        {
+        case led_wave:
 
-        if (calc_direction == 1)
-        {
-            led_index++;
-        }
-        else
-        {
-            led_index--;
-        }
+            if (calc_direction == 1)
+            {
+                led_index++;
+            }
+            else
+            {
+                led_index--;
+            }
 
-        if (led_index > 3)
-        {
-            calc_direction = !calc_direction;
-        }
+            if (led_index > 3)
+            {
+                calc_direction = !calc_direction;
+            }
 
-        if (led_index < 0)
-        {
-            calc_direction = !calc_direction;
-        }
-        gioToggleBit(gioPORTA, led_index);
-        break;
+            if (led_index < 0)
+            {
+                calc_direction = !calc_direction;
+            }
+            gioToggleBit(gioPORTA, led_index);
+            break;
 
-    case 1:
-        gioSetPort(gioPORTA, 0xFFFFFFFF);
-        if (calc_direction == 1)
-        {
-            led_index++;
+        case led_flashing:
+
+            gioSetPort(gioPORTA, 0xFFFFFFFF);
+            if (calc_direction == 1)
+            {
+                led_index++;
+            }
+            else
+            {
+                led_index--;
+            }
+            if (led_index > 3)
+            {
+                calc_direction = !calc_direction;
+            }
+            if (led_index < 0)
+            {
+                calc_direction = !calc_direction;
+            }
+            gioToggleBit(gioPORTA, led_index);
+            break;
+
+        case led_binary_increment:
+
+            gioSetPort(gioPORTA, 0b00000000);
+            if (port <= 0b00001111)
+            {
+                port++;
+            }
+            else
+            {
+                port = 0b0000000;
+            }
+            gioSetPort(gioPORTA, ~port);
+            break;
+        default:
+            break;
         }
-        else
-        {
-            led_index--;
-        }
-        if (led_index > 3)
-        {
-            calc_direction = !calc_direction;
-        }
-        if (led_index < 0)
-        {
-            calc_direction = !calc_direction;
-        }
-        gioToggleBit(gioPORTA, led_index);
-        break;
-    case 2:
-        gioSetPort(gioPORTA, 0b00000000);
-        if (port <= 0b00001111)
-        {
-            port++;
-        }
-        else
-        {
-            port = 0b0000000;
-        }
-        gioSetPort(gioPORTA, ~port);
-        break;
-    default:
-        mode = 0;
-        break;
-    }
 }
 
 /* USER CODE END */
