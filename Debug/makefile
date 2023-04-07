@@ -10,6 +10,7 @@ GEN_OPTS__FLAG :=
 GEN_CMDS__FLAG := 
 
 ORDERED_OBJS += \
+"./source/My_file.obj" \
 "./source/dabort.obj" \
 "./source/errata_SSWF021_45.obj" \
 "./source/esm.obj" \
@@ -161,8 +162,8 @@ LED_TEST_4.out: $(OBJS) $(CMD_SRCS) $(GEN_CMDS)
 # Other Targets
 clean:
 	-$(RM) $(EXE_OUTPUTS__QUOTED)
-	-$(RM) "source\dabort.obj" "source\errata_SSWF021_45.obj" "source\esm.obj" "source\gio.obj" "source\het.obj" "source\notification.obj" "source\pinmux.obj" "source\rti.obj" "source\sys_core.obj" "source\sys_dma.obj" "source\sys_intvecs.obj" "source\sys_main.obj" "source\sys_mpu.obj" "source\sys_pcr.obj" "source\sys_phantom.obj" "source\sys_pmm.obj" "source\sys_pmu.obj" "source\sys_selftest.obj" "source\sys_startup.obj" "source\sys_vim.obj" "source\system.obj" 
-	-$(RM) "source\errata_SSWF021_45.d" "source\esm.d" "source\gio.d" "source\het.d" "source\notification.d" "source\pinmux.d" "source\rti.d" "source\sys_dma.d" "source\sys_main.d" "source\sys_pcr.d" "source\sys_phantom.d" "source\sys_pmm.d" "source\sys_selftest.d" "source\sys_startup.d" "source\sys_vim.d" "source\system.d" 
+	-$(RM) "source\My_file.obj" "source\dabort.obj" "source\errata_SSWF021_45.obj" "source\esm.obj" "source\gio.obj" "source\het.obj" "source\notification.obj" "source\pinmux.obj" "source\rti.obj" "source\sys_core.obj" "source\sys_dma.obj" "source\sys_intvecs.obj" "source\sys_main.obj" "source\sys_mpu.obj" "source\sys_pcr.obj" "source\sys_phantom.obj" "source\sys_pmm.obj" "source\sys_pmu.obj" "source\sys_selftest.obj" "source\sys_startup.obj" "source\sys_vim.obj" "source\system.obj" 
+	-$(RM) "source\My_file.d" "source\errata_SSWF021_45.d" "source\esm.d" "source\gio.d" "source\het.d" "source\notification.d" "source\pinmux.d" "source\rti.d" "source\sys_dma.d" "source\sys_main.d" "source\sys_pcr.d" "source\sys_phantom.d" "source\sys_pmm.d" "source\sys_selftest.d" "source\sys_startup.d" "source\sys_vim.d" "source\system.d" 
 	-$(RM) "source\dabort.d" "source\sys_core.d" "source\sys_intvecs.d" "source\sys_mpu.d" "source\sys_pmu.d" 
 	-@echo 'Finished clean'
 	-@echo ' '

@@ -22,6 +22,7 @@ source/sys_main.obj: D:/Wsp\ HCG/LED_TEST_4/include/het.h
 source/sys_main.obj: D:/Wsp\ HCG/LED_TEST_4/include/reg_het.h
 source/sys_main.obj: D:/Progs/ccs/tools/compiler/ti-cgt-arm_20.2.7.LTS/include/string.h
 source/sys_main.obj: D:/Progs/ccs/tools/compiler/ti-cgt-arm_20.2.7.LTS/include/xlocale/_string.h
+source/sys_main.obj: D:/Wsp\ HCG/LED_TEST_4/include/My_file.h
 
 ../source/sys_main.c:
 
@@ -66,4 +67,6 @@ D:/Wsp\ HCG/LED_TEST_4/include/reg_het.h:
 D:/Progs/ccs/tools/compiler/ti-cgt-arm_20.2.7.LTS/include/string.h:
 
 D:/Progs/ccs/tools/compiler/ti-cgt-arm_20.2.7.LTS/include/xlocale/_string.h:
+
+D:/Wsp\ HCG/LED_TEST_4/include/My_file.h:
 

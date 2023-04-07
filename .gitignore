@@ -1,3 +1,6 @@
+#Ignoring directories
+Debug/
+
 # Prerequisites
 *.d
 
