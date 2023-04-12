@@ -46,10 +46,10 @@
 
 /* Include Files */
 
+#include <led_blink.h>
 #include "sys_common.h"
 
 /* USER CODE BEGIN (1) */
-#include "My_file.h"
 /* USER CODE END */
 
 /** @fn void main(void)
@@ -61,8 +61,8 @@
  */
 
 /* USER CODE BEGIN (2) */
+extern mode_t mode;
 /* USER CODE END */
-
 int main(void)
 {
     /* USER CODE BEGIN (3) */
@@ -74,7 +74,7 @@ int main(void)
     rtiStartCounter(rtiCOUNTER_BLOCK0);
     while (1)
     {
-        if (button_state()== true)
+        if (isButtonClick())
         {
             mode_change(mode++);
         }
@@ -88,17 +88,17 @@ void rtiNotification(uint32 notification)
 {
     switch (mode)
     {
-    case led_wave:
+    case ledWave:
         wave();
         break;
-    case led_pong:
+    case ledPong:
         pong();
         break;
-    case led_binary_increment:
+    case ledBinaryIncrement:
         b_inc();
         break;
     default:
-        mode=led_wave;
+        mode=ledWave;
         break;
     }
 }

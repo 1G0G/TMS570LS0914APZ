@@ -1,6 +1,9 @@
 # FIXED
 
 source/sys_main.obj: ../source/sys_main.c
+source/sys_main.obj: D:/Wsp\ HCG/LED_TEST_4/include/led_blink.h
+source/sys_main.obj: D:/Wsp\ HCG/LED_TEST_4/include/rti.h
+source/sys_main.obj: D:/Wsp\ HCG/LED_TEST_4/include/reg_rti.h
 source/sys_main.obj: D:/Wsp\ HCG/LED_TEST_4/include/sys_common.h
 source/sys_main.obj: D:/Wsp\ HCG/LED_TEST_4/include/hal_stdtypes.h
 source/sys_main.obj: D:/Progs/ccs/tools/compiler/ti-cgt-arm_20.2.7.LTS/include/stdint.h
@@ -14,9 +17,6 @@ source/sys_main.obj: D:/Progs/ccs/tools/compiler/ti-cgt-arm_20.2.7.LTS/include/m
 source/sys_main.obj: D:/Progs/ccs/tools/compiler/ti-cgt-arm_20.2.7.LTS/include/machine/_stdint.h
 source/sys_main.obj: D:/Progs/ccs/tools/compiler/ti-cgt-arm_20.2.7.LTS/include/sys/_stdint.h
 source/sys_main.obj: D:/Progs/ccs/tools/compiler/ti-cgt-arm_20.2.7.LTS/include/stdbool.h
-source/sys_main.obj: D:/Wsp\ HCG/LED_TEST_4/include/My_file.h
-source/sys_main.obj: D:/Wsp\ HCG/LED_TEST_4/include/rti.h
-source/sys_main.obj: D:/Wsp\ HCG/LED_TEST_4/include/reg_rti.h
 source/sys_main.obj: D:/Wsp\ HCG/LED_TEST_4/include/gio.h
 source/sys_main.obj: D:/Wsp\ HCG/LED_TEST_4/include/reg_gio.h
 source/sys_main.obj: D:/Wsp\ HCG/LED_TEST_4/include/het.h
@@ -25,6 +25,12 @@ source/sys_main.obj: D:/Progs/ccs/tools/compiler/ti-cgt-arm_20.2.7.LTS/include/s
 source/sys_main.obj: D:/Progs/ccs/tools/compiler/ti-cgt-arm_20.2.7.LTS/include/xlocale/_string.h
 
 ../source/sys_main.c:
+
+D:/Wsp\ HCG/LED_TEST_4/include/led_blink.h:
+
+D:/Wsp\ HCG/LED_TEST_4/include/rti.h:
+
+D:/Wsp\ HCG/LED_TEST_4/include/reg_rti.h:
 
 D:/Wsp\ HCG/LED_TEST_4/include/sys_common.h:
 
@@ -51,12 +57,6 @@ D:/Progs/ccs/tools/compiler/ti-cgt-arm_20.2.7.LTS/include/machine/_stdint.h:
 D:/Progs/ccs/tools/compiler/ti-cgt-arm_20.2.7.LTS/include/sys/_stdint.h:
 
 D:/Progs/ccs/tools/compiler/ti-cgt-arm_20.2.7.LTS/include/stdbool.h:
-
-D:/Wsp\ HCG/LED_TEST_4/include/My_file.h:
-
-D:/Wsp\ HCG/LED_TEST_4/include/rti.h:
-
-D:/Wsp\ HCG/LED_TEST_4/include/reg_rti.h:
 
 D:/Wsp\ HCG/LED_TEST_4/include/gio.h:
 

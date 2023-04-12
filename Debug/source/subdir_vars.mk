@@ -16,11 +16,11 @@ ASM_SRCS += \
 ../source/sys_pmu.asm 
 
 C_SRCS += \
-../source/My_file.c \
 ../source/errata_SSWF021_45.c \
 ../source/esm.c \
 ../source/gio.c \
 ../source/het.c \
+../source/led_blink.c \
 ../source/notification.c \
 ../source/pinmux.c \
 ../source/rti.c \
@@ -35,11 +35,11 @@ C_SRCS += \
 ../source/system.c 
 
 C_DEPS += \
-./source/My_file.d \
 ./source/errata_SSWF021_45.d \
 ./source/esm.d \
 ./source/gio.d \
 ./source/het.d \
+./source/led_blink.d \
 ./source/notification.d \
 ./source/pinmux.d \
 ./source/rti.d \
@@ -54,12 +54,12 @@ C_DEPS += \
 ./source/system.d 
 
 OBJS += \
-./source/My_file.obj \
 ./source/dabort.obj \
 ./source/errata_SSWF021_45.obj \
 ./source/esm.obj \
 ./source/gio.obj \
 ./source/het.obj \
+./source/led_blink.obj \
 ./source/notification.obj \
 ./source/pinmux.obj \
 ./source/rti.obj \
@@ -85,12 +85,12 @@ ASM_DEPS += \
 ./source/sys_pmu.d 
 
 OBJS__QUOTED += \
-"source\My_file.obj" \
 "source\dabort.obj" \
 "source\errata_SSWF021_45.obj" \
 "source\esm.obj" \
 "source\gio.obj" \
 "source\het.obj" \
+"source\led_blink.obj" \
 "source\notification.obj" \
 "source\pinmux.obj" \
 "source\rti.obj" \
@@ -109,11 +109,11 @@ OBJS__QUOTED += \
 "source\system.obj" 
 
 C_DEPS__QUOTED += \
-"source\My_file.d" \
 "source\errata_SSWF021_45.d" \
 "source\esm.d" \
 "source\gio.d" \
 "source\het.d" \
+"source\led_blink.d" \
 "source\notification.d" \
 "source\pinmux.d" \
 "source\rti.d" \
@@ -134,12 +134,19 @@ ASM_DEPS__QUOTED += \
 "source\sys_mpu.d" \
 "source\sys_pmu.d" 
 
+ASM_SRCS__QUOTED += \
+"../source/dabort.asm" \
+"../source/sys_core.asm" \
+"../source/sys_intvecs.asm" \
+"../source/sys_mpu.asm" \
+"../source/sys_pmu.asm" 
+
 C_SRCS__QUOTED += \
-"../source/My_file.c" \
 "../source/errata_SSWF021_45.c" \
 "../source/esm.c" \
 "../source/gio.c" \
 "../source/het.c" \
+"../source/led_blink.c" \
 "../source/notification.c" \
 "../source/pinmux.c" \
 "../source/rti.c" \
@@ -152,12 +159,5 @@ C_SRCS__QUOTED += \
 "../source/sys_startup.c" \
 "../source/sys_vim.c" \
 "../source/system.c" 
-
-ASM_SRCS__QUOTED += \
-"../source/dabort.asm" \
-"../source/sys_core.asm" \
-"../source/sys_intvecs.asm" \
-"../source/sys_mpu.asm" \
-"../source/sys_pmu.asm" 
 
 
