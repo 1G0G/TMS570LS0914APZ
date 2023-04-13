@@ -1,7 +1,7 @@
 ******************************************************************************
                   TI ARM Linker PC v20.2.7                     
 ******************************************************************************
->> Linked Wed Apr 12 16:12:36 2023
+>> Linked Thu Apr 13 14:39:43 2023
 
 OUTPUT FILE NAME:   <LED_TEST_4.out>
 ENTRY POINT SYMBOL: "_c_int00"  address: 00006fa8
@@ -12,22 +12,22 @@ MEMORY CONFIGURATION
          name            origin    length      used     unused   attr    fill
 ----------------------  --------  ---------  --------  --------  ----  --------
   VECTORS               00000000   00000020  00000020  00000000     X
-  FLASH0                00000020   000fffe0  00007e24  000f81bc  R  X
+  FLASH0                00000020   000fffe0  00007e20  000f81c0  R  X
   STACKS                08000000   00001500  00000000  00001500  RW  
-  RAM                   08001500   0001eb00  00000018  0001eae8  RW  
+  RAM                   08001500   0001eb00  00000014  0001eaec  RW  
 
 
 SEGMENT ALLOCATION MAP
 
 run origin  load origin   length   init length attrs members
 ----------  ----------- ---------- ----------- ----- -------
-00000000    00000000    00007e44   00007e44    r-x
+00000000    00000000    00007e40   00007e40    r-x
   00000000    00000000    00000020   00000020    r-x .intvecs
   00000020    00000020    0000783c   0000783c    r-x .text
   0000785c    0000785c    000005cc   000005cc    r-- .const
-  00007e28    00007e28    0000001c   0000001c    r-- .cinit
-08001500    08001500    00000018   00000000    rw-
-  08001500    08001500    00000018   00000000    rw- .data
+  00007e28    00007e28    00000018   00000018    r-- .cinit
+08001500    08001500    00000014   00000000    rw-
+  08001500    08001500    00000014   00000000    rw- .data
 
 
 SECTION ALLOCATION MAP
@@ -74,14 +74,13 @@ section   page    origin      length       input sections
                   00007dfc    00000020     het.obj (.const:s_het1pwmPolarity)
                   00007e1c    0000000c     led_blink.obj (.const:led_period_ms)
 
-.cinit     0    00007e28    0000001c     
-                  00007e28    0000000a     (.cinit..data.load) [load image, compression = lzss]
-                  00007e32    00000002     --HOLE-- [fill = 0]
-                  00007e34    00000008     (__TI_handler_table)
-                  00007e3c    00000008     (__TI_cinit_table)
+.cinit     0    00007e28    00000018     
+                  00007e28    00000008     (.cinit..data.load) [load image, compression = lzss]
+                  00007e30    00000008     (__TI_handler_table)
+                  00007e38    00000008     (__TI_cinit_table)
 
-.data      0    08001500    00000018     UNINITIALIZED
-                  08001500    00000018     led_blink.obj (.data)
+.data      0    08001500    00000014     UNINITIALIZED
+                  08001500    00000014     led_blink.obj (.data)
 
 __llvm_prf_cnts 
 *          0    08001500    00000000     UNINITIALIZED
@@ -101,7 +100,7 @@ MODULE SUMMARY
        errata_SSWF021_45.obj        1636    0         0      
        gio.obj                      1156    0         0      
        sys_core.obj                 844     0         0      
-       led_blink.obj                652     12        24     
+       led_blink.obj                652     12        20     
        sys_startup.obj              608     0         0      
        dabort.obj                   232     0         0      
        sys_pmu.obj                  224     0         0      
@@ -110,7 +109,7 @@ MODULE SUMMARY
        sys_intvecs.obj              32      0         0      
        sys_phantom.obj              4       0         0      
     +--+----------------------------+-------+---------+---------+
-       Total:                       30380   1484      24     
+       Total:                       30380   1484      20     
                                                              
     D:/Progs/ccs/tools/compiler/ti-cgt-arm_20.2.7.LTS/lib/rtsv7R4_T_be_v3D16_eabi.lib
        memcpy_t2.asm.obj            156     0         0      
@@ -123,20 +122,20 @@ MODULE SUMMARY
     +--+----------------------------+-------+---------+---------+
        Total:                       432     0         0      
                                                              
-       Linker Generated:            0       26        0      
+       Linker Generated:            0       24        0      
     +--+----------------------------+-------+---------+---------+
-       Grand Total:                 30812   1510      24     
+       Grand Total:                 30812   1508      20     
 
 
 LINKER GENERATED COPY TABLES
 
-__TI_cinit_table @ 00007e3c records: 1, size/record: 8, table size: 8
-	.data: load addr=00007e28, load size=0000000a bytes, run addr=08001500, run size=00000018 bytes, compression=lzss
+__TI_cinit_table @ 00007e38 records: 1, size/record: 8, table size: 8
+	.data: load addr=00007e28, load size=00000008 bytes, run addr=08001500, run size=00000014 bytes, compression=lzss
 
 
 LINKER GENERATED HANDLER TABLE
 
-__TI_handler_table @ 00007e34 records: 2, size/record: 4, table size: 8
+__TI_handler_table @ 00007e30 records: 2, size/record: 4, table size: 8
 	index: 0, handler: __TI_decompress_lzss
 	index: 1, handler: __TI_decompress_none
 
@@ -145,14 +144,18 @@ GLOBAL SYMBOLS: SORTED ALPHABETICALLY BY Name
 
 address   name                                
 -------   ----                                
+00006e64  BinaryInc                           
 0000784f  C$$EXIT                             
 000059f4  IsdwdKeySequenceCorrect             
+00006d1c  ModeChange                          
+00006e3c  Pong                                
 UNDEFED   SHT$$INIT_ARRAY$$Base               
 UNDEFED   SHT$$INIT_ARRAY$$Limit              
-00007e3c  __TI_CINIT_Base                     
-00007e44  __TI_CINIT_Limit                    
-00007e34  __TI_Handler_Table_Base             
-00007e3c  __TI_Handler_Table_Limit            
+00006e20  Wave                                
+00007e38  __TI_CINIT_Base                     
+00007e40  __TI_CINIT_Limit                    
+00007e30  __TI_Handler_Table_Base             
+00007e38  __TI_Handler_Table_Limit            
 00006a48  __TI_PINIT_Base                     
 00006a4c  __TI_PINIT_Limit                    
 000077fd  __TI_auto_init_nobinit_nopinit      
@@ -225,7 +228,6 @@ UNDEFED   _system_post_cinit
 0000784f  abort                               
 0000126c  adc1ParityCheck                     
 00001358  adc2ParityCheck                     
-00006e64  b_inc                               
 ffffffff  binit                               
 00001410  can1ParityCheck                     
 000014e8  can2ParityCheck                     
@@ -324,8 +326,7 @@ ffffffff  binit
 0000751c  memoryPort1TestFailNotification     
 000015b0  mibspi1ParityCheck                  
 000016c0  mibspi3ParityCheck                  
-08001509  mode                                
-00006d1c  mode_change                         
+08001502  mode                                
 0000484c  muxInit                             
 00002150  pbistFail                           
 000021d4  pbistGetConfigValue                 
@@ -338,7 +339,6 @@ ffffffff  binit
 00002b38  periphInit                          
 00007854  phantomInterrupt                    
 00004c24  pinmuxGetConfigValue                
-00006e3c  pong                                
 00004464  pwmDisableNotification              
 0000441c  pwmEnableNotification               
 0000433c  pwmGetSignal                        
@@ -379,7 +379,6 @@ ffffffff  binit
 00003508  vimInit                             
 00000e00  vimParityCheck                      
 00006a50  vimParityErrorHandler               
-00006e20  wave                                
 
 
 GLOBAL SYMBOLS: SORTED BY Symbol Address 
@@ -557,10 +556,10 @@ address   name
 00006a48  __TI_PINIT_Base                     
 00006a4c  __TI_PINIT_Limit                    
 00006a50  vimParityErrorHandler               
-00006d1c  mode_change                         
-00006e20  wave                                
-00006e3c  pong                                
-00006e64  b_inc                               
+00006d1c  ModeChange                          
+00006e20  Wave                                
+00006e3c  Pong                                
+00006e64  BinaryInc                           
 00006ebc  isButtonClick                       
 00006fa8  _c_int00                            
 00007204  esmHighInterrupt                    
@@ -605,13 +604,13 @@ address   name
 00007854  phantomInterrupt                    
 00007858  handlePLLLockFail                   
 00007e1c  led_period_ms                       
-00007e34  __TI_Handler_Table_Base             
-00007e3c  __TI_CINIT_Base                     
-00007e3c  __TI_Handler_Table_Limit            
-00007e44  __TI_CINIT_Limit                    
+00007e30  __TI_Handler_Table_Base             
+00007e38  __TI_CINIT_Base                     
+00007e38  __TI_Handler_Table_Limit            
+00007e40  __TI_CINIT_Limit                    
 08001500  __start___llvm_prf_cnts             
 08001500  __stop___llvm_prf_cnts              
-08001509  mode                                
+08001502  mode                                
 ffffffff  __TI_pprof_out_hndl                 
 ffffffff  __TI_prof_data_size                 
 ffffffff  __TI_prof_data_start                

@@ -41,10 +41,10 @@ typedef enum Led_mode_t
 } mode_t;
 
 
-void mode_change(mode_t mode);
-void wave(void);
-void pong(void);
-void b_inc(void);
+void ModeChange(mode_t mode);
+void Wave(void);
+void Pong(void);
+void BinaryInc(void);
 
 
 

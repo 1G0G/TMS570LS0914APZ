@@ -18,10 +18,13 @@ mode_t mode = ledWave;
  *  Reset led_index from ChangeLedIndex
  *  interrupts rtiNotification for the duration of the function
  */
-const int led_period_ms[] = { [ledWave]=250, [ledPong]=200, [ledBinaryIncrement
-                                      ]=200 };
+const int led_period_ms[] = {
+[ledWave]=250,
+[ledPong]=200,
+[ledBinaryIncrement]=200
+};
 
-void mode_change(mode_t mode)
+void ModeChange(mode_t mode)
 {
     led_index = -1;
     gioSetPort(gioPORTA, 0xFFFFFFFF);
@@ -60,7 +63,7 @@ static void ChangeLedIndex(void)
  * Wave led mode
  * from 1-4 led (0-3bit)
  */
-void wave(void)
+void Wave(void)
 {
     ChangeLedIndex();
     gioToggleBit(gioPORTA, led_index);
@@ -71,7 +74,7 @@ void wave(void)
  * from 1-4 led (0-3bit)
  * only 1 led at tick ON
  */
-void pong(void)
+void Pong(void)
 {
 
     gioSetPort(gioPORTA, 0xFFFFFFFF);
@@ -85,7 +88,7 @@ void pong(void)
  * from 0 to 15
  */
 static uint32_t port = 0;
-void b_inc(void)
+void BinaryInc(void)
 {
     gioSetPort(gioPORTA, 0b00000000);
     if (port <= 0b00001111)

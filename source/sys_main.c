@@ -76,7 +76,7 @@ int main(void)
     {
         if (isButtonClick())
         {
-            mode_change(mode++);
+            ModeChange(mode++);
         }
     }
     /* USER CODE END */
@@ -89,13 +89,13 @@ void rtiNotification(uint32 notification)
     switch (mode)
     {
     case ledWave:
-        wave();
+        Wave();
         break;
     case ledPong:
-        pong();
+        Pong();
         break;
     case ledBinaryIncrement:
-        b_inc();
+        BinaryInc();
         break;
     default:
         mode=ledWave;
